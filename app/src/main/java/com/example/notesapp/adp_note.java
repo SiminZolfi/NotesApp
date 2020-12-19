@@ -40,7 +40,7 @@ public class adp_note extends RecyclerView.Adapter<adp_note.ViewHolder> {
         mdl_note mdl=list.get(position);
         holder.tv_title.setText(mdl.getTitle());
         holder.tv_date.setText(mdl.getDate()+"-" + mdl.getTime());
-        int color = Color.parseColor(mdl.getColor());
+       int color = Integer.parseInt(mdl.getColor());
         holder.cv_item.setCardBackgroundColor(color);
 
         holder.btn_del.setOnClickListener(new View.OnClickListener() {

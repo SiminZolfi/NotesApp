@@ -42,4 +42,6 @@ dependencies {
     implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
     implementation platform('com.google.firebase:firebase-bom:26.1.1')
     implementation 'com.google.firebase:firebase-analytics'
+    compile 'com.divyanshu.colorseekbar:colorseekbar:1.0.2'
+
 }

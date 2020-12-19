@@ -6,9 +6,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,6 +27,7 @@ public class atv_note extends AppCompatActivity {
     FirebaseDatabase db;
     DatabaseReference ref;
     TextView tv_name;
+    FloatingActionButton btn_add;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +35,7 @@ public class atv_note extends AppCompatActivity {
 
         rv_data=findViewById(R.id.rv_data);
         tv_name=findViewById(R.id.tv_name);
+        btn_add=findViewById(R.id.btn_add);
 
         tv_name.setText(app_var.user.getName());
 
@@ -40,6 +45,15 @@ public class atv_note extends AppCompatActivity {
 
         load();
 
+
+        btn_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(atv_note.this,atv_note_add.class));
+                overridePendingTransition(R.anim.anim_fade_in,R.anim.anim_fade_out);
+
+            }
+        });
     }
 
     ArrayList<mdl_note> arrayList;
