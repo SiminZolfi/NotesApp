@@ -6,7 +6,7 @@
         android:name=".app_font"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="Ù†ÙˆØª Ø§Ù¾"
+        android:label="نوت اپ"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="false"
         android:theme="@style/Theme.NotesApp">
@@ -20,7 +20,9 @@
         <activity android:name=".atv_note_read"  android:screenOrientation="portrait" />
         <activity android:name=".atv_note_edit"  android:screenOrientation="portrait" />
         <activity android:name=".atv_note_add"  android:screenOrientation="portrait" />
-        <activity android:name=".atv_note"  android:screenOrientation="portrait"  />
+        <activity android:name=".atv_note"  android:screenOrientation="portrait"  >
+
+        </activity>
         <activity android:name=".atv_intro"  android:screenOrientation="portrait" >
 
         </activity>

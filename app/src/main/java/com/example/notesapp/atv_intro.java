@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -55,6 +57,18 @@ public class atv_intro extends AppCompatActivity {
                 i++;
                 vw_pager.setCurrentItem(i);
                 set_button_visiblity();
+            }
+        });
+
+        btn_enter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences.Editor editor=getSharedPreferences("runned", Context.MODE_PRIVATE).edit();
+                editor.putInt("run",1);
+                editor.commit();
+                startActivity(new Intent(atv_intro.this,atv_login.class));
+                overridePendingTransition(R.anim.anim_fade_in,R.anim.anim_fade_out);
+                finish();
             }
         });
     }

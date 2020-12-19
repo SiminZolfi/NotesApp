@@ -82,6 +82,7 @@ public class atv_login extends AppCompatActivity {
                     mdl_user user=snap.getValue(mdl_user.class);
                     if(user.username.equals(et_username.getText().toString()) && user.password.equals(et_password.getText().toString()))
                     {
+                        app_var.user=user;
                         exist=true;
                         startActivity(new Intent(atv_login.this,atv_note.class));
                     }
