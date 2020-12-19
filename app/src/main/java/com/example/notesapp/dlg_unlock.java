@@ -1,5 +1,6 @@
 package com.example.notesapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
@@ -8,6 +9,13 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.Toast;
+
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,7 +54,8 @@ public class dlg_unlock extends DialogFragment {
         fragment.setArguments(args);
         return fragment;
     }
-
+    FirebaseDatabase database;
+    DatabaseReference ref;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +69,62 @@ public class dlg_unlock extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        getDialog().getWindow().setBackgroundDrawableResource(R.drawable.drw_corner_dlg);
         return inflater.inflate(R.layout.dlg_unlock, container, false);
+    }
+
+    Button btn_check;
+    TextInputEditText et_password;
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        et_password=getDialog().findViewById(R.id.et_password);
+        btn_check=getDialog().findViewById(R.id.btn_check);
+
+        btn_check.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(et_password.length()==0)
+                {
+                    Toast.makeText(getActivity(), "لطفا رمز را وارد نمائید", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                check();
+            }
+        });
+    }
+
+    private void check()
+    {
+        String cmd=getTag();
+        if(et_password.getText().toString().equals(app_var.note.getPassword()))
+        {
+            if(cmd.equals("show"))
+            {
+                getActivity().startActivity(new Intent(getActivity(),atv_note_read.class));
+            }
+            else if(cmd.equals("edit"))
+            {
+                getActivity().startActivity(new Intent(getActivity(),atv_note_edit.class));
+            }
+
+            else if(cmd.equals("del"))
+            {
+
+                database= FirebaseDatabase.getInstance();
+                ref = database.getReference("notes").child(String.valueOf(app_var.note.getId()));
+                ref.removeValue();
+            }
+        }
+        else
+
+        {
+            Toast.makeText(getActivity(), "رمز عبور اشتباه می باشد", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
     }
 }

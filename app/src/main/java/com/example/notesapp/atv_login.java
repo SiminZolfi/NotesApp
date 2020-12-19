@@ -85,6 +85,8 @@ public class atv_login extends AppCompatActivity {
                         app_var.user=user;
                         exist=true;
                         startActivity(new Intent(atv_login.this,atv_note.class));
+                        overridePendingTransition(R.anim.anim_fade_in,R.anim.anim_fade_out);
+
                     }
 
                 }

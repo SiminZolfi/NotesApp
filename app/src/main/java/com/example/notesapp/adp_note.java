@@ -10,7 +10,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DatabaseReference;
@@ -46,9 +48,21 @@ public class adp_note extends RecyclerView.Adapter<adp_note.ViewHolder> {
         holder.btn_del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                database= FirebaseDatabase.getInstance();
-                ref = database.getReference("notes").child(String.valueOf(mdl.getId()));
-                ref.removeValue();
+                app_var.note=mdl;
+                if(app_var.note.locked==1)
+                {
+                    dlg_unlock dlg=new dlg_unlock();
+                    FragmentManager manager=((AppCompatActivity) ctx).getSupportFragmentManager();
+                    dlg.show(manager,"del");
+                }
+                else
+                {
+
+                    database= FirebaseDatabase.getInstance();
+                    ref = database.getReference("notes").child(String.valueOf(mdl.getId()));
+                    ref.removeValue();
+                }
+
             }
         });
 
@@ -56,7 +70,16 @@ public class adp_note extends RecyclerView.Adapter<adp_note.ViewHolder> {
             @Override
             public void onClick(View v) {
                 app_var.note=mdl;
-                ctx.startActivity(new Intent(ctx,atv_note_edit.class));
+                if(app_var.note.locked==1)
+                {
+                    dlg_unlock dlg=new dlg_unlock();
+                    FragmentManager manager=((AppCompatActivity) ctx).getSupportFragmentManager();
+                    dlg.show(manager,"edit");
+                }
+                else
+                {
+                    ctx.startActivity(new Intent(ctx,atv_note_edit.class));
+                }
             }
         });
 
@@ -64,7 +87,17 @@ public class adp_note extends RecyclerView.Adapter<adp_note.ViewHolder> {
             @Override
             public void onClick(View v) {
                 app_var.note=mdl;
-                ctx.startActivity(new Intent(ctx,atv_note_read.class));
+
+                if(app_var.note.locked==1)
+                {
+                    dlg_unlock dlg=new dlg_unlock();
+                    FragmentManager manager=((AppCompatActivity) ctx).getSupportFragmentManager();
+                    dlg.show(manager,"show");
+                }
+                else
+                {
+                    ctx.startActivity(new Intent(ctx,atv_note_read.class));
+                }
             }
         });
 
