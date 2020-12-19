@@ -47,6 +47,7 @@ public class frg_intro_03 extends Fragment {
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
+        //asd
         return fragment;
     }
 
