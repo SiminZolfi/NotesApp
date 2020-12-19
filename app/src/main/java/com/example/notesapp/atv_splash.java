@@ -24,10 +24,15 @@ public class atv_splash extends AppCompatActivity {
                 if(run==0)
                 {
                     startActivity(new Intent(atv_splash.this,atv_intro.class));
+                    overridePendingTransition(R.anim.anim_fade_in,R.anim.anim_fade_out);
+                    finish();
                 }
                 else
                 {
+
                     startActivity(new Intent(atv_splash.this,atv_login.class));
+                    overridePendingTransition(R.anim.anim_fade_in,R.anim.anim_fade_out);
+                    finish();
                 }
             }
         },3000);

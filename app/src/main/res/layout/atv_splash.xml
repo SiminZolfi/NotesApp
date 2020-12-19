@@ -33,6 +33,7 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:scaleType="centerCrop"
+            android:transitionName="logo_image"
             app:srcCompat="@drawable/ic_outline_sticky_note_2_24" />
 
         <TextView
