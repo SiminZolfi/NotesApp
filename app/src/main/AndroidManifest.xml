@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.notesapp">
+
+    <application
+        android:name=".app_font"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="نوت اپ"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="false"
+        android:theme="@style/Theme.NotesApp">
+        <activity android:name=".atv_register"  android:screenOrientation="portrait" ></activity>
+        <activity android:name=".atv_login"  android:screenOrientation="portrait" >
+
+        </activity>
+
+        <activity android:name=".atv_note_read"  android:screenOrientation="portrait" />
+        <activity android:name=".atv_note_edit"  android:screenOrientation="portrait" />
+        <activity android:name=".atv_note_add"  android:screenOrientation="portrait" />
+        <activity android:name=".atv_note"  android:screenOrientation="portrait"  />
+        <activity android:name=".atv_intro"  android:screenOrientation="portrait" >
+
+        </activity>
+        <activity
+            android:name=".atv_splash"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
