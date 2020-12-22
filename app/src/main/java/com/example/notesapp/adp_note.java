@@ -1,6 +1,7 @@
 package com.example.notesapp;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentManager;
@@ -58,9 +60,24 @@ public class adp_note extends RecyclerView.Adapter<adp_note.ViewHolder> {
                 else
                 {
 
-                    database= FirebaseDatabase.getInstance();
-                    ref = database.getReference("notes").child(String.valueOf(mdl.getId()));
-                    ref.removeValue();
+                    new AlertDialog.Builder(ctx)
+                            .setTitle("حذف یادداشت")
+                            .setMessage("آیا از حذف یادداشت مطمئن هستید؟")
+
+                            // Specifying a listener allows you to take an action before dismissing the dialog.
+                            // The dialog is automatically dismissed when a dialog button is clicked.
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    database= FirebaseDatabase.getInstance();
+                                    ref = database.getReference("notes").child(String.valueOf(mdl.getId()));
+                                    ref.removeValue();
+                                }
+                            })
+
+                            // A null listener allows the button to dismiss the dialog and take no further action.
+                            .setNegativeButton(android.R.string.no, null)
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
                 }
 
             }

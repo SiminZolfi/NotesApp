@@ -8,7 +8,10 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -28,6 +31,7 @@ public class atv_note extends AppCompatActivity {
     DatabaseReference ref;
     TextView tv_name;
     FloatingActionButton btn_add;
+    EditText et_search;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +40,7 @@ public class atv_note extends AppCompatActivity {
         rv_data=findViewById(R.id.rv_data);
         tv_name=findViewById(R.id.tv_name);
         btn_add=findViewById(R.id.btn_add);
+        et_search=findViewById(R.id.et_search);
 
         tv_name.setText(app_var.user.getName());
 
@@ -46,6 +51,23 @@ public class atv_note extends AppCompatActivity {
         load();
 
 
+        et_search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                filter();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,6 +75,35 @@ public class atv_note extends AppCompatActivity {
                 overridePendingTransition(R.anim.anim_fade_in,R.anim.anim_fade_out);
 
             }
+        });
+    }
+
+    private void filter()
+    {
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                arrayList=new ArrayList<>();
+                for(DataSnapshot snap:snapshot.getChildren())
+                {
+                    mdl_note mdl=snap.getValue(mdl_note.class);
+                    if(mdl.user_id==app_var.user.getId() && mdl.title.contains(et_search.getText().toString()))
+                    {
+                        arrayList.add(mdl);
+                    }
+                }
+
+                adp_note adapter=new adp_note(atv_note.this,arrayList);
+                rv_data.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
+                rv_data.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+
         });
     }
 
